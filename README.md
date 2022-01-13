@@ -3,10 +3,10 @@
 ![Logo GRETA](https://ressources.regionsjob.com//mfx/img/centres/12122018_1052551119877889.jpg)
 
 ## Description
-Projets "fil rouge" réalisés du **13 janvier 2022 au 824 février 2022** avec l'équipe des apprenants du parcours DWWM, sur le site de Colombes.
+Projet "fil rouge" réalisé du **13 janvier 2022 au 24 février 2022** avec l'équipe des apprenants du parcours DWWM sur le site du lycée Claude Garamont à Colombes.
 
 ## Points abordés
-- [ ] CP1 Maquetter une application 
+- [x] CP1 Maquetter une application 
 - [ ] CP2 Réaliser une interface utilisateur web statique et adaptable 
 - [ ] CP3 Développer une interface utilisateur web dynamique 
 - [ ] CP4 Réaliser une interface utilisateur avec une solution de gestion de contenu ou e-commerce
