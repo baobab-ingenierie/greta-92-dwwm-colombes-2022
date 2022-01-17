@@ -11,7 +11,8 @@
 <body>
     <h1>TP : Tableaux 1</h1>
     <h2>Exercice 1</h2>
-    <?php $personnes = array(
+    <?php 
+    $personnes = array(
         'Ryan' => 16,
         'Lulu' => 19,
         'Sacha' => 66

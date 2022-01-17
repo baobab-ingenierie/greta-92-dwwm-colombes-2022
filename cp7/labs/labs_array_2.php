@@ -9,24 +9,23 @@
 </head>
 
 <body>
-    <h1>TP : Variables</h1>
+    <h1>TP : Tableaux 2</h1>
     <h2>Exercice 1</h2>
     <?php
+    $countries = array(
+        "France" => "Paris",
+        "Allemagne" => "Berlin",
+        "Italie" => "Rome"
+    );
     ?>
     <h2>Exercice 2</h2>
     <?php
-    $note_maths = 15;
-    $note_francais = 12;
-    $note_histoire_geo = 9;
-    $moyenne = ($note_maths + $note_francais + $note_histoire_geo) / 3;
-    echo "La moyenne est de $moyenne/20";
     ?>
     <h2>Exercice 3</h2>
     <?php
-    $prix_ht = 50;
-    $tva = 0.2; //20%
-    $prix_ttc = $prix_ht * (1 + $tva);
-    echo "Le prix TTC est de $prix_ttc EUR";
+    ?>
+    <h2>Exercice 4</h2>
+    <?php
     ?>
 </body>
 

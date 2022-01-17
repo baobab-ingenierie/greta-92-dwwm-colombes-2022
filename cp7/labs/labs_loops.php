@@ -12,17 +12,12 @@
     <h1>TP : Boucles</h1>
     <h2>Exercice 1</h2>
     <?php
-    $html = "";
-    for ($i = 0; $i < 6; $i++) {
-        $html .= "<p>";
-        for ($j = 0; $j < $i; $j++) {
-            // $html = $html . $i;
-            $html .= $i;
-        }
+    $html = "<p>";
+    $cp = 77000;
+    while ($cp < 78000) {
+        $html .= $cp++ . " ";
     }
     echo $html;
-    ?>
-    <?php
     ?>
     <h2>Exercice 2</h2>
     <?php
@@ -36,12 +31,22 @@
     ?>
     <h2>Exercice 3</h2>
     <?php
-    $html = "<p>";
-    $cp = 77000;
-    while ($cp < 78000) {
-        $html .= $cp++ . " ";
+    $html = "";
+    for ($i = 0; $i < 6; $i++) {
+        $html .= "<p>";
+        for ($j = 0; $j < $i; $j++) {
+            // $html = $html . $i;
+            $html .= $i;
+        }
     }
     echo $html;
+    ?>
+    <h2>Exercice 4</h2>
+    <?php
+    $nb = 0;
+    for ($nb = 0; $nb < 21; $nb = $nb + 2) {
+        echo ($nb === 10) ? "<p><strong>$nb</strong></p>" : "<p>$nb</p>";
+    }
     ?>
 </body>
 

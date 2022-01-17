@@ -25,7 +25,7 @@
     <?php
     $budget = 1234.56;
     $achats = 1357.99;
-    echo ($budget < $achats) ? "<p>Le budget couvre pas l'achat</p>" : "<p>Le budget couvre l'achat</p>";
+    echo ($budget < $achats) ? "<p>Le budget ne couvre pas l'achat</p>" : "<p>Le budget couvre l'achat</p>";
     ?>
     <h2>Exercice 3</h2>
     <?php
