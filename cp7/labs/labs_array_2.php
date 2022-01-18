@@ -79,14 +79,27 @@
         'Allemagne' => 82800000
     );
 
-    // for ($i = 0; $i < count($pays_pop); $i++) {
-    //     if ($pays_pop[$i] >= 20000000) {
-    //         echo "<p>" . $pays_pop[$i];
-    //     }
-    // }
-
     foreach ($pays_pop as $key => $val) {
         echo ($val >= 20000000) ? "<p>$key" : "";
+    }
+    ?>
+    <h2>TD : Tableau multidimentionnel</h2>
+    <?php
+    $pays = array(
+        'France' => array(67595000, 'Paris', 'Europe'),
+        'Suede' => array(9998000, 'Stockholm', 'Europe', 'SEK'),
+        'Suisse' => array(8417000, 'Berne', 'Europe', 'CHF'),
+        'Kosovo' => array(1820631, 'Pristina', 'Europe'),
+        'Malte' => array(434403, 'La Valette', 'Europe'),
+        'Mexique' => array(122273500, 'Mexico City', 'Amérique', 'MXN'),
+        'Allemagne' => array(82800000, 'Berlin', 'Europe')
+    );
+    // Lister le nom des pays, le continent et la monnaie de tous
+    // les pays non européens plus la France
+    foreach ($pays as $key => $val) {
+        if ($key === "France" || $val[2] !== "Europe") {
+            echo "<p>$key " . $val[2] . " " . (array_key_exists(3, $val) ? $val[3] : "EUR");
+        }
     }
     ?>
 </body>
