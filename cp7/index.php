@@ -12,97 +12,97 @@ $crew = array(
     array(
         "fname" => "Maeliss",
         "age" => 20,
-        "sexe" => "F",
+        "sex" => "F",
         "hobbies" => array("Codage", "Manga")
     ),
     array(
         "fname" => "Mourad",
         "age" => 37,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Conduite")
     ),
     array(
         "fname" => "Fayçal",
         "age" => 21,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Crypto monnaie")
     ),
     array(
         "fname" => "Ilyes",
         "age" => 19,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("1664", "86")
     ),
     array(
         "fname" => "Mohamed",
         "age" => 25,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Boxe", "Foot")
     ),
     array(
         "fname" => "Ahmad",
         "age" => 26,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Famille")
     ),
     array(
         "fname" => "Joëlle",
         "age" => 20,
-        "sexe" => "F",
+        "sex" => "F",
         "hobbies" => array("Sport", "Voyages")
     ),
     array(
         "fname" => "Yann",
         "age" => 56,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("3D", "Voyages")
     ),
     array(
         "fname" => "Aymane",
         "age" => 24,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Nourriture")
     ),
     array(
         "fname" => "Inas",
         "age" => 20,
-        "sexe" => "F",
+        "sex" => "F",
         "hobbies" => array("Basket", "Mode")
     ),
     array(
         "fname" => "Sofiane",
         "age" => 24,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Cinéma", "Musique")
     ),
     array(
         "fname" => "Jonathan",
         "age" => 36,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Sport", "Jardinage")
     ),
     array(
         "fname" => "Iheb",
         "age" => 31,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Foot", "Bachata")
     ),
     array(
         "fname" => "Raphaële",
         "age" => 20,
-        "sexe" => "F",
+        "sex" => "F",
         "hobbies" => array("Couture", "Foot")
     ),
     array(
         "fname" => "Sadou",
         "age" => 30,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("Politique", "Spiritualisme")
     ),
     array(
         "fname" => "Lesly",
         "age" => 55,
-        "sexe" => "M",
+        "sex" => "M",
         "hobbies" => array("No sport", "Bouffe")
     )
 );
@@ -127,6 +127,36 @@ $crew = array(
         <a href="register.php" class="btn btn-info">Inscription</a>
         <a href="login.php" class="btn btn-primary">Connexion</a>
     </div>
+
+    <h2>Notre équipe</h2>
+
+    <section id="team" class="d-flex flex-wrap justify-content-around">
+        <div class="card" style="width:15rem;">
+            <img src="pics/woman.jpg" alt="Rokia" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">Rokia</h5>
+                <p>20 ans</p>
+                <p>Sport, Cinéma</p>
+                <a href="#" class="btn btn-danger">Ecrire</a>
+            </div>
+        </div>
+
+        <?php
+        $html="";
+        foreach ($crew as $val) {
+            $html.= '<div class="card" style="width:15rem;">
+            <img src="pics/' . ($val['sex'] === "F" ? "woman" : "man") . '.jpg" alt="' . $val['fname'] . '" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">' . $val['fname'] . '</h5>
+                <p>' . $val['age'] . ' ans</p>
+                <p>' . implode(", ", $val['hobbies']) . '</p>
+                <a href="#" class="btn btn-danger">Ecrire</a>
+            </div>
+        </div>';
+        }
+        echo $html;
+        ?>
+    </section>
 </body>
 
 </html>
