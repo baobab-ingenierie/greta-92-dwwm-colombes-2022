@@ -1,0 +1,8 @@
+# Gestion des erreurs : liens morts, accès interdits
+# Sous Ubuntu mettre les directives ci-dessous dans le fichier
+# sudo nano /etc/apache2/sites-available/000-default.conf
+ErrorDocument 404 /colombes/cp7/error/404.html
+ErrorDocument 403 /colombes/cp7/error/403.html
+
+# Interdiction de parcourir la structure des dossiers
+Options All -Indexes

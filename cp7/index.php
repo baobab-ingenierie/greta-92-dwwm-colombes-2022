@@ -117,6 +117,7 @@ $crew = array(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo APP_NAME; ?> : VOD</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body class="container">
@@ -131,7 +132,7 @@ $crew = array(
     <h2>Notre équipe</h2>
 
     <section id="team" class="d-flex flex-wrap justify-content-around">
-        <div class="card" style="width:15rem;">
+        <div class="mb-3 card woman" style="width:15rem;">
             <img src="pics/woman.jpg" alt="Rokia" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">Rokia</h5>
@@ -142,10 +143,11 @@ $crew = array(
         </div>
 
         <?php
-        $html="";
+        $html = "";
         foreach ($crew as $val) {
-            $html.= '<div class="card" style="width:15rem;">
-            <img src="pics/' . ($val['sex'] === "F" ? "woman" : "man") . '.jpg" alt="' . $val['fname'] . '" class="card-img-top">
+            $chpakoi = ($val['sex'] === 'F' ? 'woman' : 'man');
+            $html .= '<div class="mb-3 card ' . $chpakoi . '" style="width:15rem;">
+            <img src="pics/' . $chpakoi . '.jpg" alt="' . $val['fname'] . '" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">' . $val['fname'] . '</h5>
                 <p>' . $val['age'] . ' ans</p>
