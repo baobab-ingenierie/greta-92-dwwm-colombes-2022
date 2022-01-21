@@ -45,16 +45,24 @@
     /**
      * Fonction qui génère une table de multiplication à
      * partir d'un paramètre entier
-     * @param int $nb nombre entier
+     * @param int $nb_ok nombre entier
      * @return string élément HTML de type TABLE
      */
-    function multiplication(int $nb): string
+    function multiplication(int $nb_ok): string
     {
         $html = '<table border="1">';
-        for ($row = 1; $row < $nb + 1; $row++) {
-            $html .= '<tr>';
-            for ($col = 1; $col < $nb + 1; $col++) {
-                $html .= '<td>' . ($row * $col) . '</td>';
+        // En-tête des colonnes
+        $html .= '<tr><th>&nbsp;</th>';
+        for ($col = 1; $col < $nb_ok + 1; $col++) {
+            $html .= '<th>' . $col . '</th>';
+        }
+        $html .= '</tr>';
+
+        for ($resow = 1; $resow < $nb_ok + 1; $resow++) {
+            // En-têtes des lignes et data
+            $html .= '<tr><th>' . $resow . '</th>';
+            for ($col = 1; $col < $nb_ok + 1; $col++) {
+                $html .= '<td>' . ($resow * $col) . '</td>';
             }
             $html .= '</tr>';
         }
@@ -78,8 +86,38 @@
      */
     function average(): float
     {
-        return 0.0;
+        $tab = array();
+        $res = 0;
+        $nb_ok = 0;
+        $nb_ko = 0;
+
+        if (func_num_args() === 1 && is_array(func_get_arg(0))) {
+            $tab = func_get_arg(0);
+        } else {
+            $tab = func_get_args();
+        }
+
+        for ($i = 0; $i < count($tab); $i++) {
+            if (is_numeric($tab[$i])) {
+                $res += $tab[$i];
+                $nb_ok++;
+            } else {
+                $nb_ko++;
+            }
+        }
+
+        if ($nb_ko) {
+            trigger_error($nb_ko . ' argument(s) invalide(s).', E_USER_WARNING);
+        }
+
+        $res /= $nb_ok;
+        return $res;
     }
+
+    // Tests
+    echo '<p>Test 1 : ' . average(array(1, 2, 3));
+    echo '<p>Test 2 : ' . average(4,5,6);
+    echo '<p>Test 3 : ' . average('one', array(2), 3);
     ?>
 </body>
 

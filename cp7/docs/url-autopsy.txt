@@ -1,0 +1,28 @@
+AVANT :
+https://www.fnac.com
+
+APRES :
+https://www.fnac.com/SearchResult/ResultList.aspx?SCat=0%211&Search=livres+alg%C3%A9rie&sft=1&sa=1
+
+PROTOCOL : https://
+DOMAIN NAME : www.fnac.com
+PATH : /SearchResult/
+FILE : ResultList.aspx
+
+?
+
+PARAM 1 : SCat=0%211
+&
+PARAM 2 : Search=livres+alg%C3%A9rie
+&
+PARAM 3 : sft=1
+&
+PARAM 4 : sa=1
+
+$_GET['SCat'] = '0%211';
+$_GET['Search'] = 'livres+alg%C3%A9rie';
+$_GET['sft'] = '1';
+$_GET['sa'] = '1';
+
+
+
