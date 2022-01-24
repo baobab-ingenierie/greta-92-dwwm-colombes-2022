@@ -1,3 +1,5 @@
+https://blockly.games/maze?lang=fr
+https://blockly.games/turtle?lang=fr
 https://www.netlify.com/
 https://www.chartjs.org/
 https://developers.themoviedb.org/3
