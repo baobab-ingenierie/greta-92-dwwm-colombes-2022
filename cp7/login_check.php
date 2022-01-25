@@ -16,6 +16,9 @@ if (isset($_POST['password']) && !empty($_POST['password'])) {
 // 2. Assigne les valeurs cryptées pour comparaison
 $login = strtolower($login);
 $password = hash('sha256', hash('md5', $password) . hash('sha1', $login));
+// echo '<p>'.$login;
+// echo '<p>'.$password;
+// exit();
 
 // 3. Teste si le couple login/password est correct
 try {
@@ -60,7 +63,8 @@ try {
         $_SESSION['userid'] = (int) $row['customer_id'];
         $_SESSION['role'] = (int) $row['role'];
         $_SESSION['avatar'] = $row['avatar'];
-        var_dump($_SESSION);
+        // var_dump($_SESSION);
+
         // Route vers index.php
         header('location:index.php?code=1');
     } else {
@@ -68,4 +72,5 @@ try {
     }
 } catch (PDOException $err) {
     header('location:index.php?code=2');
+    echo $err->getMessage();
 }

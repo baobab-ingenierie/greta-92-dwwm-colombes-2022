@@ -129,6 +129,12 @@ $crew = array(
         <a href="login.php" class="btn btn-primary">Connexion</a>
     </div>
 
+    <?php
+    if (isset($_GET['code']) && !empty($_GET['code'])) {
+        // DEMAIN
+    }
+    ?>
+
     <h2>Notre équipe</h2>
 
     <section id="team" class="d-flex flex-wrap justify-content-around">
