@@ -3,14 +3,12 @@
 session_start();
 
 // Teste si user est authentifié
-if (!isset($_SESSION['isauth']) || !$_SESSION['isauth']) {
-    $isauth = false;
-    header('location:index.php?code=3');
-    exit();
-} else {
+if (isset($_SESSION['isauth']) && $_SESSION['isauth']) {
     $isauth = true;
+} else {
+    $isauth = false;
+    // header('location:index.php?code=3');
 }
-var_dump($_SESSION);
 ?>
 
 <?php
