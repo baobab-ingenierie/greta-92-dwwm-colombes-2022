@@ -1,111 +1,31 @@
 <?php
+// Démarre ou restaure une session
+session_start();
+
+// Teste si user est authentifié
+if (!isset($_SESSION['isauth']) || !$_SESSION['isauth']) {
+    $isauth = false;
+    header('location:index.php?code=3');
+    exit();
+} else {
+    $isauth = true;
+}
+var_dump($_SESSION);
+?>
+
+<?php
 // Constante nom application
 // define('APP_NAME', 'Live Stream');
 const APP_NAME = "Live Stream";
 // Ecart en jours
 $today = strtotime("now");
+
 // $today = strtotime(date("Y-m-d"));
 $start = strtotime("2022-01-13");
 $gap = floor(($today - $start) / 60 / 60 / 24);
+
 // Tableau des membres de l'équipe
-$crew = array(
-    array(
-        "fname" => "Maeliss",
-        "age" => 20,
-        "sex" => "F",
-        "hobbies" => array("Codage", "Manga")
-    ),
-    array(
-        "fname" => "Mourad",
-        "age" => 37,
-        "sex" => "M",
-        "hobbies" => array("Conduite")
-    ),
-    array(
-        "fname" => "Fayçal",
-        "age" => 21,
-        "sex" => "M",
-        "hobbies" => array("Crypto monnaie")
-    ),
-    array(
-        "fname" => "Ilyes",
-        "age" => 19,
-        "sex" => "M",
-        "hobbies" => array("1664", "86")
-    ),
-    array(
-        "fname" => "Mohamed",
-        "age" => 25,
-        "sex" => "M",
-        "hobbies" => array("Boxe", "Foot")
-    ),
-    array(
-        "fname" => "Ahmad",
-        "age" => 26,
-        "sex" => "M",
-        "hobbies" => array("Famille")
-    ),
-    array(
-        "fname" => "Joëlle",
-        "age" => 20,
-        "sex" => "F",
-        "hobbies" => array("Sport", "Voyages")
-    ),
-    array(
-        "fname" => "Yann",
-        "age" => 56,
-        "sex" => "M",
-        "hobbies" => array("3D", "Voyages")
-    ),
-    array(
-        "fname" => "Aymane",
-        "age" => 24,
-        "sex" => "M",
-        "hobbies" => array("Nourriture")
-    ),
-    array(
-        "fname" => "Inas",
-        "age" => 20,
-        "sex" => "F",
-        "hobbies" => array("Basket", "Mode")
-    ),
-    array(
-        "fname" => "Sofiane",
-        "age" => 24,
-        "sex" => "M",
-        "hobbies" => array("Cinéma", "Musique")
-    ),
-    array(
-        "fname" => "Jonathan",
-        "age" => 36,
-        "sex" => "M",
-        "hobbies" => array("Sport", "Jardinage")
-    ),
-    array(
-        "fname" => "Iheb",
-        "age" => 31,
-        "sex" => "M",
-        "hobbies" => array("Foot", "Bachata")
-    ),
-    array(
-        "fname" => "Raphaële",
-        "age" => 20,
-        "sex" => "F",
-        "hobbies" => array("Couture", "Foot")
-    ),
-    array(
-        "fname" => "Sadou",
-        "age" => 30,
-        "sex" => "M",
-        "hobbies" => array("Politique", "Spiritualisme")
-    ),
-    array(
-        "fname" => "Lesly",
-        "age" => 55,
-        "sex" => "M",
-        "hobbies" => array("No sport", "Bouffe")
-    )
-);
+include_once 'inc/team.inc.php';
 ?>
 
 <!DOCTYPE html>
@@ -125,13 +45,39 @@ $crew = array(
         <h1 class="display-4"><?php echo APP_NAME; ?></h1>
         <p class="lead">Bienvenue sur la plateforme <?php echo APP_NAME; ?>. Ce site a été mis en ligne par la Garamont Coders Crew il y a <?php echo $gap; ?> jours. Elle permet de louer des films full HD en-ligne ou via notre application mobile.</p>
         <hr>
-        <a href="register.php" class="btn btn-info">Inscription</a>
-        <a href="login.php" class="btn btn-primary">Connexion</a>
+
+        <a href="register.php" class="btn btn-info <?php echo ($isauth ? 'd-none' : ''); ?>">Inscription</a>
+        <a href="login.php" class="btn btn-primary <?php echo ($isauth ? 'd-none' : ''); ?>">Connexion</a>
+        <a href="logout.php" class="btn btn-danger <?php echo (!$isauth ? 'd-none' : ''); ?>">Déconnexion</a>
     </div>
 
     <?php
     if (isset($_GET['code']) && !empty($_GET['code'])) {
-        // DEMAIN
+        switch ($_GET['code']) {
+            case 9:
+                $col = 'warning';
+                $msg = 'Login ou mot de passe incorrect.';
+                break;
+            case 1:
+                $col = 'success';
+                $msg = 'Bienvenue ' . ($isauth ? $_SESSION['fname'] : '') . ' !';
+                break;
+            case 2:
+                $col = 'danger';
+                $msg = 'Une erreur est survenue avec la BDD.';
+                break;
+            case 3:
+                $col = 'info';
+                $msg = 'Vous devez être connecté pour accéder à ces fonctionnalités.';
+                break;
+        }
+
+        if (isset($col) && isset($msg)) {
+            echo '<div class="alert alert-' . $col . ' alert-dismissible fade show" role="alert">' . $msg . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>';
+        }
     }
     ?>
 

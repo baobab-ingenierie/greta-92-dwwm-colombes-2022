@@ -50,6 +50,10 @@ SELECT customer_id,
 FROM customer
 ;
 
+SELECT *
+FROM customer
+;
+
 -- Requête qui teste le couple login/password
 SELECT c.active,
 		c.first_name,
@@ -61,6 +65,6 @@ SELECT c.active,
 FROM customer c 
 JOIN user u
 ON u.user_id = c.customer_id
-WHERE c.email = ''
-AND u.password = ''
+WHERE c.email = ?
+AND u.password = ?
 ;

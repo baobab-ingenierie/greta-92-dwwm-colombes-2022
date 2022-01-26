@@ -59,7 +59,7 @@ try {
         session_start();
         $row = $res->fetch();
         $_SESSION['isauth'] = true;
-        $_SESSION['fname'] = ucwords($row['first_name']);
+        $_SESSION['fname'] = ucwords(strtolower($row['first_name']));
         $_SESSION['userid'] = (int) $row['customer_id'];
         $_SESSION['role'] = (int) $row['role'];
         $_SESSION['avatar'] = $row['avatar'];
@@ -68,7 +68,7 @@ try {
         // Route vers index.php
         header('location:index.php?code=1');
     } else {
-        header('location:index.php?code=0');
+        header('location:index.php?code=9');
     }
 } catch (PDOException $err) {
     header('location:index.php?code=2');
