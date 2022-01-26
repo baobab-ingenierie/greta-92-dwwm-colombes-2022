@@ -20,39 +20,63 @@
                 <form action="register_check.php" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for=""></label>
-                            <input type="" name="" id="" class="form-control" required>
+                            <label for="first_name">Prénom</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control" minlength="1" maxlength="45" pattern="[A-Za-z\u00c0-\u00ff\- ']{1,45}" required>
                         </div>
                         <div class="form-group">
-                            <label for=""></label>
-                            <input type="" name="" id="" class="form-control" required>
+                            <label for="last_name">Nom</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control" minlength="1" maxlength="45" pattern="[A-Za-z\u00c0-\u00ff\- ']{1,45}" required>
                         </div>
                         <div class="form-group">
-                            <label for=""></label>
-                            <input type="" name="" id="" class="form-control" required>
+                            <label for="email">Courriel</label>
+                            <input type="email" inputmode="email" name="email" id="email" class="form-control" minlength="1" maxlength="50" required>
                         </div>
                         <div class="form-group">
-                            <label for=""></label>
-                            <select name="" id="">
+                            <label for="address_id">Adresse</label>
+                            <select name="address_id" id="address_id" class="form-control">
+                                <?php
+                                try {
+                                    include_once 'inc/globals.php';
 
+                                    $conn = new PDO('mysql:host=' . HOST . ';dbname=' . DATA . ';charset=utf8', USER, PASS, OPTIONS);
+
+                                    $sql = "SELECT address_id, CONCAT(address, ' ', postal_code, ' ', city, ' ', country) AS address
+                                    FROM address
+                                      INNER JOIN city 
+                                        ON city.city_id = address.city_id
+                                      INNER JOIN country
+                                        ON country.country_id = city.country_id";
+
+                                    $res = $conn->prepare($sql);
+
+                                    $res->execute();
+
+                                    $html = '';
+                                    while ($row = $res->fetch()) {
+                                        $html .= sprintf('<option value="%s">%s</option>', $row['address_id'], $row['address']);
+                                    }
+                                    echo $html;
+                                } catch (PDOException $err) {
+                                    echo '<p class="alert alert-danger">' . $err->getMessage() . '</p>';
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for=""></label>
-                            <input type="" name="" id="" class="form-control" required>
+                            <label for="password">Mot de passe</label>
+                            <input type="password" name="password" id="password" class="form-control" minlength="8" maxlength="20" pattern="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[_\=]).{8,20})" title="8 à 20 caractères requis : A à Z, a à z, 0 à 9, _ et =" required>
                         </div>
-                        <div class="form-group">
-                            <label for=""></label>
-                            <input type="" id="" class="form-control" required>
-                        </div>
+                        <label for="password2">Vérification</label>
+                        <input type="password" id="password2" class="form-control" minlength="8" maxlength="20" pattern="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[_\=]).{8,20})" title="8 à 20 caractères requis : A à Z, a à z, 0 à 9, _ et =" required>
                     </div>
-                    <div class="modal-footer">
-                        <input type="submit" value="S'inscrire" class="btn btn-primary">
-                    </div>
-                </form>
-
             </div>
+            <div class="modal-footer">
+                <input type="submit" value="S'inscrire" class="btn btn-primary">
+            </div>
+            </form>
+
         </div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
