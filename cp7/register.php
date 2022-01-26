@@ -66,17 +66,18 @@
                             <label for="password">Mot de passe</label>
                             <input type="password" name="password" id="password" class="form-control" minlength="8" maxlength="20" pattern="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[_\=]).{8,20})" title="8 à 20 caractères requis : A à Z, a à z, 0 à 9, _ et =" required>
                         </div>
-                        <label for="password2">Vérification</label>
-                        <input type="password" id="password2" class="form-control" minlength="8" maxlength="20" pattern="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[_\=]).{8,20})" title="8 à 20 caractères requis : A à Z, a à z, 0 à 9, _ et =" required>
+                        <div>
+                            <label for="password2">Vérification</label>
+                            <input type="password" id="password2" class="form-control" minlength="8" maxlength="20" pattern="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[_\=]).{8,20})" title="8 à 20 caractères requis : A à Z, a à z, 0 à 9, _ et =" required>
+                        </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" value="S'inscrire" class="btn btn-primary">
-            </div>
-            </form>
+                    <div class="modal-footer">
+                        <input type="submit" value="S'inscrire" class="btn btn-primary">
+                    </div>
+                </form>
 
+            </div>
         </div>
-    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
