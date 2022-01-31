@@ -21,6 +21,12 @@ SELECT SHA2(CONCAT(MD5('password'), SHA1('my.address@nowhere.com')), 256)
 USE colombes
 ;
 
+-- Ajout de la contrainte UNIQUE à la colonne 
+-- EMAIL de la table CUSTOMER
+ALTER TABLE customer
+	ADD CONSTRAINT customer_uq UNIQUE (email)
+;
+
 -- Création de la table USER
 CREATE TABLE user(
 	-- Colonnes

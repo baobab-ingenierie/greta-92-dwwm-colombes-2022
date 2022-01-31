@@ -8,6 +8,7 @@
 if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') {
     // Connexion à la BDD
     define('HOST', 'localhost');
+    define('PORT', 3306);
     define('DATA', 'colombes');
     define('USER', 'root');
     define('PASS', 'root');
@@ -23,6 +24,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.
 } else {
     // Exemple chez OVH
     define('HOST', 'livestresql1.mysql.db');
+    define('PORT', 3306);
     define('DATA', 'livestresql1');
     define('USER', 'livestre');
     define('PASS', 'biscotte');
