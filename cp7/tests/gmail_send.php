@@ -37,7 +37,7 @@
  * https://www.google.com/settings/security/lesssecureapps
  */
 
-$to = "greta.oise@gmail.com; lesly.lodin@baobab-ingenierie.fr";
+$to = "greta.oise@gmail.com";
 $subject = "Test mail PHP";
 $message = "
 <html>
