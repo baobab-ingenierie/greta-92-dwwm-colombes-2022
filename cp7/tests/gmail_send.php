@@ -2,13 +2,12 @@
 
 /**
  * UBUNTU
- * ; Update
+ * Mettre à jour le cache de paquets apt :
  * $ sudo apt-update
- * ; Install sendmail
- * $ sudo apt-get install sendmail
- * ; Configure sendmail : answer Yes to every question
- * $ sudo sendmailconfig
- * ; Restart Web Server
+ * Installer le package postfix avec la commande suivante :
+ * $ sudo DEBIAN_PRIORITY=low apt install postfix
+ * Configurer postfix en répondant aux questions
+ * Redémarrer le serveur web
  * $ sudo service apache2 restart
  * 
  * INSTALLATION DE SENDMAIL : WINDOWS
