@@ -9,12 +9,21 @@ if (isset($_SESSION['isauth']) && $_SESSION['isauth']) {
     $isauth = false;
     // header('location:index.php?code=3');
 }
+
+// Teste si role est défini
+if (isset($_SESSION['role']) && $_SESSION['role']) {
+    $role = $_SESSION['role'];
+} else {
+    $role = 1;
+}
+
 ?>
 
 <?php
 // Constante nom application
 // define('APP_NAME', 'Live Stream');
 const APP_NAME = "Live Stream";
+
 // Ecart en jours
 $today = strtotime("now");
 
@@ -47,6 +56,7 @@ include_once 'inc/team.inc.php';
         <a href="register.php" class="btn btn-info <?php echo ($isauth ? 'd-none' : ''); ?>">Inscription</a>
         <a href="login.php" class="btn btn-primary <?php echo ($isauth ? 'd-none' : ''); ?>">Connexion</a>
         <a href="logout.php" class="btn btn-danger <?php echo (!$isauth ? 'd-none' : ''); ?>">Déconnexion</a>
+        <a href="list_users.php" class="btn btn-warning <?php echo (!$isauth ? 'd-none' : ''); ?>">Utilisateurs</a>
     </div>
 
     <?php

@@ -105,3 +105,15 @@ INSERT INTO user(
     604
 );
 
+-- Liste des customers/users
+SELECT u.user_id,
+		c.first_name,
+        u.role,
+        c.email,
+        c.active,
+        c.last_update
+FROM user u
+JOIN customer c
+ON c.customer_id = u.user_id
+ORDER BY last_update DESC
+;
