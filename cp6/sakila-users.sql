@@ -74,3 +74,34 @@ ON u.user_id = c.customer_id
 WHERE c.email = ?
 AND u.password = ?
 ;
+
+-- Insertion d'un customer/user ADMIN
+INSERT INTO customer(
+	address_id, 
+    email, 
+    first_name, 
+    last_name, 
+    store_id
+) VALUES(
+	1,
+    'lesly.lodin@baobab-ingenierie.fr',
+    'Lesly',
+    'Lodin',
+    1
+);
+
+SELECT *
+FROM customer
+WHERE email = 'lesly.lodin@baobab-ingenierie.fr'
+; -- 604
+
+INSERT INTO user(
+	password,
+    role,
+    user_id
+) VALUES(
+	SHA2(CONCAT(MD5('Secret_123'), SHA1('lesly.lodin@baobab-ingenierie.fr')), 256),
+    5,
+    604
+);
+

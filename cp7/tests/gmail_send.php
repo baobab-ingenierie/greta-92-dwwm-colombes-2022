@@ -22,13 +22,14 @@
  * Fermer en sauvegardant
  * 
  * CONFIGURATION PHP : WINDOWS
- * Ouvrir php.ini et commenter les variables suivantes :
+ * Ouvrir le php.ini à partir de votre serveur local puis 
+ * commenter les variables suivantes si présentes :
  * - ;SMTP = localhost
  * - ;smtp_port = 25
  * - ;auth_username =
  * - ;auth_password =
  * - ;sendmail_from = me@example.com -> Windows seulement
- * Puis définir la variable suivante :
+ * Définir ensuite la variable suivante si pas présente :
  * - sendmail_path="d:\apps\sendmail\sendmail.exe -t"
  * 
  * CONFIGURATION GMAIL
@@ -36,7 +37,7 @@
  * https://www.google.com/settings/security/lesssecureapps
  */
 
-$to = "greta.oise@gmail.com";
+$to = "greta.oise@gmail.com,webmaster@baobab-ingenierie.fr";
 $subject = "Test mail PHP";
 $message = "
 <html>
