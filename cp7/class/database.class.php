@@ -84,6 +84,9 @@ class Database
             // Prépare la requête
             // Exécute avec params
             // Renvoie résultat
+            $res = $this->cnn->prepare($sql);
+            $res->execute($params);
+            return $res->fetchAll();
         } catch (PDOException $err) {
             throw new PDOException($err->getMessage());
         }
@@ -167,18 +170,20 @@ class Database
     {
         // Selon le moteur choisi, génère la DSN correspondante
         $newEngine = strtolower($newEngine);
-
         switch ($newEngine) {
             case self::ENGINE_MYSQL:
             case self::ENGINE_MARIADB:
                 $this->engine = $newEngine;
                 $this->dsn = 'mysql:host=%s;dbname=%s;charset=utf8';
+                break;
             case self::ENGINE_POSTGRESQL:
                 $this->engine = $newEngine;
                 $this->dsn = 'pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s;charset=utf8';
+                break;
             case self::ENGINE_SQLITE:
                 $this->engine = $newEngine;
                 $this->dsn = 'sqlite:%s';
+                break;
             default:
                 throw new Exception(__CLASS__ . ' : Valeur de engine incorrecte, utiliser plutôt : MySQL, Mariadb, PostgreSQL ou SQLite.');
         }
