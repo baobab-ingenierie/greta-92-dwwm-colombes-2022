@@ -13,6 +13,7 @@ class Animal
     private $dob = '';
     private $weight = 0.0;
     private $female = true;
+    private $env = '';
 
     // Constantes de classe : environnement de l'animal
     const ENV_AIR = 'air';
@@ -25,7 +26,8 @@ class Animal
         string $newName = '',
         string $newDob = '',
         float $newWeight = 0,
-        bool $newFemale = false
+        bool $newFemale = false,
+        string $newEnv = ''
     ) {
         // Assignation d'une valeur aux attributs public
         $this->name = $newName;
@@ -38,6 +40,7 @@ class Animal
         }
         $this->setWeight($newWeight);
         $this->setFemale($newFemale);
+        $this->setEnv($newEnv);
     }
 
     // Méthodes publiques
@@ -53,6 +56,24 @@ class Animal
 
         // RAZ du poids de la proie
         $prey->setWeight(0);
+    }
+
+    public function move()
+    {
+        switch ($this->getEnv()) {
+            case self::ENV_AIR:
+                $verb = 'vole';
+                break;
+            case self::ENV_GROUND:
+                $verb = 'marche ou rampe';
+                break;
+            case self::ENV_WATER:
+                $verb = 'nage';
+                break;
+            default:
+                $verb = 'recule';
+        }
+        return $this->name . ' ' . $verb;
     }
 
     // Méthodes privées
@@ -90,6 +111,36 @@ class Animal
         }
     }
 
+    public function setEnv(string $newEnv)
+    {
+        // Tester si $newEnv vaut 'eau', 'terre' ou 'air' en utilisant les constantes de classe -> self::ENV_WATER. Si aucune des trois valeurs alors $newEnv vaut self::ENV_OTHER
+        // Exemples:
+        // $toutou->setEnv('Terre') => 'terre'
+        // $toutou->setEnv('coucou') => 'autre'
+        // $toutou->setEnv('EAU') => 'eau'
+
+        $env = strtolower($newEnv);
+
+        // Crée les dictionnaires d'environnements
+        $air = array('air', 'aérien', 'ciel', 'volant', 'aéro', 'vol');
+        $water = array('eau', 'aquatique', 'flotte', 'rivière', 'lac', 'mer');
+        $ground = array('terre', 'sol', 'bitume', 'terrestre', 'terrain', 'forêt', 'savane');
+
+        switch ($env) {
+            case in_array($env, $ground):
+                $this->env = self::ENV_GROUND;
+                break;
+            case in_array($env, $air):
+                $this->env = self::ENV_AIR;
+                break;
+            case in_array($env, $water):
+                $this->env = self::ENV_WATER;
+                break;
+            default:
+                $this->env = self::ENV_OTHER;
+        }
+    }
+
     // Méthodes pour accéder à la valeur des attributs privés : accesseurs ou getters
     public function getDob(): string
     {
@@ -117,9 +168,14 @@ class Animal
         return $this->female;
     }
 
+    public function getEnv(): string
+    {
+        return $this->env;
+    }
+
     // Destructeur
     public function __destruct()
     {
-        echo '<p>'.$this->name.' a été détruit(e) !</p>';
+        echo '<p>' . $this->name . ' a été détruit(e) !</p>';
     }
 }

@@ -1,6 +1,7 @@
 <?php
 // Import
 include_once '../class/animal.class.php';
+include_once '../class/human.class.php';
 
 // Test 1 : instanciation
 echo '<h2>Instanciation</h2>';
@@ -62,4 +63,23 @@ var_dump($cat3);
 
 // Test 5 : constante de classe
 echo '<h2>Constante de classe</h2>';
-echo '<p>Environnement : ' . Animal::ENV_GROUND;
+$duck = new Animal('Donald', '1945-01-06', 2.5, false, 'eau');
+echo '<p>Environnement de Donald : ' . $duck->getEnv();
+echo '<p>' . $duck->move();
+echo '<p>' . $cat3->move();
+
+var_dump($duck);
+
+// Test 6 : héritage
+$guy = new Human('Mbappe', 'Kylian', '1998-12-18');
+
+// $guy->setWeight(200.5); // pour test
+$guy->setWeight(70);
+
+$guy->setEnv('aquatique');
+echo '<p>A la piscine, ' . $guy->getFname() . ' ' . $guy->move();
+
+$guy->setEnv('aérien');
+echo '<p>En l\'air, ' . $guy->getFname() . ' ' . $guy->move();
+
+
