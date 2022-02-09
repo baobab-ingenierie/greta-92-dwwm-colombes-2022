@@ -19,8 +19,8 @@ class Database
     private $connected = false;
 
     // Constantes de classe
-    const REGEX_HOST = '([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}:[0-9]{2,4})|([a-z]{1,30}:[0-9]{2,4})';
-    const REGEX_OBJECT = '[A-Za-z_]{1,30}';
+    const REGEX_HOST = '/([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3})|([a-z]{1,30})/';
+    const REGEX_OBJECT = '/[A-Za-z_]{1,30}/';
 
     const ENGINE_MYSQL = 'mysql';
     const ENGINE_MARIADB = 'mariadb';
@@ -80,13 +80,15 @@ class Database
     public function getData(string $sql, array $params = array()): array
     {
         try {
-            // Commence par SELECT ou SHOW <- Sofiane
-            // Prépare la requête
-            // Exécute avec params
-            // Renvoie résultat
-            $res = $this->cnn->prepare($sql);
-            $res->execute($params);
-            return $res->fetchAll();
+            // Teste si la requête commence par SELECT
+            $words = explode(' ', strtolower($sql));
+            if ($words[0] === 'select') {
+                $res = $this->cnn->prepare($sql);
+                $res->execute($params);
+                return $res->fetchAll();
+            } else {
+                throw new Exception(__CLASS__ . ' : La requête doit commencer par SELECT.');
+            }
         } catch (PDOException $err) {
             throw new PDOException($err->getMessage());
         }
@@ -121,6 +123,11 @@ class Database
     public function getPass(): string
     {
         return $this->pass;
+    }
+
+    public function getCnn(): PDO
+    {
+        return $this->cnn;
     }
 
     // Mutateurs :
