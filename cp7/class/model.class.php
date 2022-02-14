@@ -32,13 +32,14 @@ final class Model extends Database
 
     /**
      * Méthode qui renvoie toutes les lignes de la table en cours
+     * @param string $sql requête SQL à exécuter
      * @return array résultat de la requête SELECT sous la forme d'un tableau associatif
      */
 
-    public function getRows(): array
+    public function getRows(string $sql = ''): array
     {
         try {
-            $sql = 'SELECT * FROM ' . $this->getTable();
+            $sql = ($sql === '') ?  'SELECT * FROM ' . $this->getTable() : $sql;
             return $this->db->getData($sql);
         } catch (PDOException $err) {
             throw new PDOException($err->getMessage());
@@ -83,9 +84,69 @@ final class Model extends Database
             $sql = sprintf($sql, $this->getTable(), $cols, $vals);
 
             // Prépare et exécute la requête
-            $res=$this->db->getCnn()->prepare($sql);
+            $res = $this->db->getCnn()->prepare($sql);
             return $res->execute($params);
             // return $res->rowCount();
+        } catch (PDOException $err) {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui met à jour une ligne dans la table en cours
+     * @param array $data tableau associatif de type $_POST contenant le nom des colonnes associé à leur valeur
+     * @param string $pk nom de la colonne clé primaire
+     * @param string $id valeur de la colonne clé primaire
+     * @return bool vrai si la requête a réussi
+     */
+
+    public function update(array $data, string $pk, string $id): bool
+    {
+        try {
+            // Remplit le tableau de paramètres
+            foreach ($data as $key => $val) {
+                $params[':' . $key] = htmlspecialchars($val);
+                $set[] = $key . '=:' . $key;
+            }
+            $params[':id'] = $id;
+
+            // Ecrit la requête paramétrée
+            $sql = 'UPDATE %s SET %s WHERE %s=:id';
+            $cols = implode(',', $set);
+            $sql = sprintf($sql, $this->getTable(), $cols, $pk);
+
+            // Prépare et exécute la requête
+            $res = $this->db->getCnn()->prepare($sql);
+            return $res->execute($params);
+        } catch (PDOException $err) {
+            throw new PDOException($err->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui supprime une ou plusieurs ligne dans la table en cours
+     * @param string $pk nom de la colonne clé primaire
+     * @param array $ids tableau de valeurs de la colonne clé primaire à supprimer
+     */
+
+    public function delete(string $pk, array $ids = array()): int
+    {
+        try {
+            // Si liste ID non
+            if (!empty($ids)) {
+                // Ecrit la requête paramétrée
+                $sql = 'DELETE FROM %s WHERE %s IN (%s)';
+                $vals = implode(',', $ids);
+                $sql = sprintf($sql, $this->getTable(), $pk, $vals);
+
+                echo $vals;
+
+                // Prépare et exécute la requête
+                $res = $this->db->getCnn()->prepare($sql);
+                return $res->execute();
+            } else {
+                throw new Exception(__CLASS__ . ' : indiquer en second argument la liste des ids à supprimer.');
+            }
         } catch (PDOException $err) {
             throw new PDOException($err->getMessage());
         }

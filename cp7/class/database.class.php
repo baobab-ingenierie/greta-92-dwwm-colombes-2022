@@ -74,7 +74,7 @@ class Database
     // Méthodes publiques
 
     /**
-     * Méthode qui renvoie le résultat d'une requête SELECT sous la form d'un tableau associatif
+     * Méthode qui renvoie le résultat d'une requête SELECT sous la forme d'un tableau associatif
      */
 
     public function getData(string $sql, array $params = array()): array
@@ -91,6 +91,61 @@ class Database
             }
         } catch (PDOException $err) {
             throw new PDOException($err->getMessage());
+        }
+    }
+
+    /**
+     * Méthode qui renvoie le résultat d'une requête SELECT sous la forme d'un flux JSON
+     * @param string $sql requête SELECT à exécuter
+     * @param array $params tableau de paramètres optionnel 
+     */
+
+    public function getJSON(string $sql, array $params = array()): string
+    {
+        return json_encode($this->getData($sql, $params));
+    }
+
+    /**
+     * Méthode qui renvoie le résultat d'une requête SELECT sous la forme d'un élément HTML TABLE
+     * @param string $sql
+     * @param array $params optionnel
+     */
+
+    public function makeTable(string $sql, array $params = array()): string
+    {
+        try {
+            // Prépare et exécute la requête
+            $res = $this->getCnn()->prepare($sql);
+            $res->execute($params);
+            $dataset = $res->fetchAll();
+
+            // var_dump($dataset);
+
+            // Génère le tableau HTML
+            $html = '<table class="table table-striped">';
+
+            // Parcourt les en-têtes de colonne et les inscrit en début de tableau
+            $html .= '<thead>';
+            for ($i = 0; $i < $res->columnCount(); $i++) {
+                $meta = $res->getColumnMeta($i);
+                $html .= '<th>' . $meta['name'] . '</th>';
+            }
+            $html .= '</thead>';
+
+            // Parcourt le dataset et écrit les lignes et colonnes lues
+            $html .= '<tbody>';
+            foreach ($dataset as $val) {
+                $html .= '<tr>';
+                foreach ($val as $val2) {
+                    $html .= '<td>' . $val2 . '</td>';
+                }
+                $html .= '</tr>';
+            }
+            $html .= '</tbody>';
+            $html .= '</table>';
+            return $html;
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
         }
     }
 
