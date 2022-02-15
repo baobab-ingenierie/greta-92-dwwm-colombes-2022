@@ -109,9 +109,10 @@ class Database
      * Méthode qui renvoie le résultat d'une requête SELECT sous la forme d'un élément HTML TABLE
      * @param string $sql
      * @param array $params optionnel
+     * @param array $crud  tableau associatif contenant le nom de la table et le nom de la colonne PK (optionnel)
      */
 
-    public function makeTable(string $sql, array $params = array()): string
+    public function makeTable(string $sql, array $params = array(), array $crud = array()): string
     {
         try {
             // Prépare et exécute la requête
@@ -122,13 +123,17 @@ class Database
             // var_dump($dataset);
 
             // Génère le tableau HTML
-            $html = '<table class="table table-striped">';
+            $html = '<table id="dataTable" class="table table-striped">';
 
             // Parcourt les en-têtes de colonne et les inscrit en début de tableau
             $html .= '<thead>';
             for ($i = 0; $i < $res->columnCount(); $i++) {
                 $meta = $res->getColumnMeta($i);
                 $html .= '<th>' . $meta['name'] . '</th>';
+            }
+            // Si CRUD alors nouvelle colonne
+            if (!empty($crud)) {
+                $html .= '<th></th>';
             }
             $html .= '</thead>';
 
@@ -139,8 +144,20 @@ class Database
                 foreach ($val as $val2) {
                     $html .= '<td>' . $val2 . '</td>';
                 }
+                // Si CRUD alors nouvelle colonne
+                if (!empty($crud)) {
+                    $html .=
+                        '<td>
+                            <a href="edit.php?t=' . $crud['t'] . '&k=' . $crud['k'] . '&v=" class="btn btn-success btn-sm">C</a>
+
+                            <a href="edit.php?t=' . $crud['t'] . '&k=' . $crud['k'] . '&v='. $val[$crud['k']]  .'" class="btn btn-warning btn-sm">U</a>
+
+                            <a href="edit.php?t=' . $crud['t'] . '&k=' . $crud['k'] . '&v='. $val[$crud['k']]  .'" class="btn btn-danger btn-sm">D</a>
+                        </td>';
+                }
                 $html .= '</tr>';
             }
+
             $html .= '</tbody>';
             $html .= '</table>';
             return $html;

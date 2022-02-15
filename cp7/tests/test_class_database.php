@@ -55,5 +55,8 @@ echo '<p>' . $db->getJSON('SELECT customer_id, first_name, last_name, email FROM
 
 // test 7 : renvoi tableau HTML
 echo $db->makeTable('SELECT * FROM city');
-
 echo $db->makeTable('SELECT c.first_name, c.email, u.password FROM customer c JOIN user u ON c.customer_id = u.user_id WHERE customer_id>599');
+
+// test 8 : renvoi form HTML
+echo $myTable->makeForm('city', 'city_id', 5);
+echo $myTable->makeForm('city', 'city_id');

@@ -153,6 +153,50 @@ final class Model extends Database
     }
 
     /**
+     * Méthode qui renvoie un formulaire à partir du nom de la table
+     * @param string $t table
+     * @param string $k colonne PK
+     * @param string $v valeur de la colonne PK
+     */
+
+    public function makeForm(string $t, string $k, string $v = null)
+    {
+        try {
+            // Requête SQL
+            if ($v) {
+                // UPDATE
+                $sql = 'SELECT * FROM ' . $t . ' WHERE ' . $k . '=?';
+                $params = array($v);
+                $data = $this->db->getData($sql, $params)[0];
+            } else {
+                // INSERT
+                $res = $this->db->getCnn()->prepare('SELECT * FROM ' . $t . ' WHERE 1=2');
+                $res->execute();
+                for ($i = 0; $i < $res->columnCount(); $i++) {
+                    $meta = $res->getColumnMeta($i);
+                    $data[$meta['name']] = null;
+                }
+            }
+            // var_dump($data);
+
+            // Formulaire
+            $html = '<form method="post" action="save.php?t=' . $t . '&k=' . $k . '&v=' . $v . '">';
+            foreach ($data as $key => $val) {
+                $html .=
+                    '<div class="form-group">
+                    <label for="' . $key . '">' . strtoupper($key) . '</label>
+                    <input type="text" class="form-control" id="' . $key . '" name="' . $key . '" value="' . $val . '">
+                </div>';
+            }
+            $html .= '<input type="submit" class="btn btn-info" value="Enregistrer">';
+            $html .= '</form>';
+            return $html;
+        } catch (Exception $err) {
+            throw new Exception($err->getMessage());
+        }
+    }
+
+    /**
      * Accesseurs/Mutateurs
      */
 
