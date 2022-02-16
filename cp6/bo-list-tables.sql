@@ -57,6 +57,14 @@ WHERE table_schema = 'colombes'
 AND c.column_key = 'PRI'
 ;
 
+-- Tables avec plus d'une colonne PK
+SELECT table_name
+FROM information_schema.columns
+WHERE table_schema = 'colombes'
+AND column_key = 'PRI'
+GROUP BY table_schema, table_name
+HAVING COUNT(*) > 1
+;
 -- Liste des tables et vues avec une seule PK
 SELECT t.table_name, 
 		t.table_type, 
@@ -70,6 +78,12 @@ FROM information_schema.tables t
         AND t.table_name = c.table_name
 WHERE t.table_schema = 'colombes'
 AND c.column_key = 'PRI'
+AND t.table_name NOT IN (SELECT table_name
+						FROM information_schema.columns
+						WHERE table_schema = 'colombes'
+						AND column_key = 'PRI'
+						GROUP BY table_schema, table_name
+						HAVING COUNT(*) > 1)
 UNION
 SELECT t.table_name, 
 		t.table_type, 
@@ -83,6 +97,4 @@ FROM information_schema.tables t
         AND t.table_name = c.table_name
 WHERE t.table_schema = 'colombes'
 AND t.table_type = 'VIEW'
-;
-
 ;
