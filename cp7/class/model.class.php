@@ -179,16 +179,18 @@ final class Model extends Database
             }
             // var_dump($data);
 
+            // Titre conditionné
+            $html = ($v ? '<h1>Modification de la table ' . $t . '</h1>' : '<h1>Ajout dans la table ' . $t . '</h1>');
+
             // Formulaire
-            $html = '<form method="post" action="save.php?t=' . $t . '&k=' . $k . '&v=' . $v . '">';
+            $html .= '<form method="post" action="save.php?t=' . $t . '&k=' . $k . '&v=' . $v . '">';
             foreach ($data as $key => $val) {
                 $html .=
                     '<div class="form-group">
-                    <label for="' . $key . '">' . strtoupper($key) . '</label>
-                    <input type="text" class="form-control" id="' . $key . '" name="' . $key . '" value="' . $val . '">
+                    <label for="' . $key . '">' . strtoupper($key) . '</label><input type="text" class="form-control" id="' . $key . '" name="' . $key . '" value="' . $val . '" ' . ($key === $k ? 'disabled' : '') . '>
                 </div>';
             }
-            $html .= '<input type="submit" class="btn btn-info" value="Enregistrer">';
+            $html .= '<input type="submit" class="btn btn-info" value="'.($v?'Mettre à jour':'Insérer').'">';
             $html .= '</form>';
             return $html;
         } catch (Exception $err) {
