@@ -57,6 +57,7 @@ include_once 'inc/team.inc.php';
         <a href="login.php" class="btn btn-primary <?php echo ($isauth ? 'd-none' : ''); ?>">Connexion</a>
         <a href="logout.php" class="btn btn-danger <?php echo (!$isauth ? 'd-none' : ''); ?>">Déconnexion</a>
         <a href="list_users.php" class="btn btn-warning <?php echo (!$isauth ? 'd-none' : ''); ?>">Utilisateurs</a>
+        <a href="bo.php" class="btn btn-success">Back-office</a>
     </div>
 
     <?php
