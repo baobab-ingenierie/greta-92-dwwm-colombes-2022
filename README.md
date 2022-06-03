@@ -3,7 +3,7 @@
 ![Logo GRETA](https://ressources.regionsjob.com//mfx/img/centres/12122018_1052551119877889.jpg)
 
 ## Description
-Projet "fil rouge" réalisé du **13 janvier 2022 au 24 février 2022** avec l'équipe des apprenants du parcours DWWM sur le site du lycée Claude Garamont à Colombes.
+Projet "fil rouge" réalisé du **13 janvier 2022 au 27 juin 2022** avec l'équipe des apprenants du parcours DWWM sur le site du lycée Claude Garamont à Colombes.
 
 ## Points abordés
 - [x] CP1 Maquetter une application 
@@ -14,10 +14,12 @@ Projet "fil rouge" réalisé du **13 janvier 2022 au 24 février 2022** avec l'�
 - [x] CP6 Développer les composants d’accès aux données 
 - [x] CP7 Développer la partie back-end d’une application web ou web mobile 
 - [ ] CP8 Elaborer et mettre en oeuvre des composants dans une application de gestion de contenu ou e-commerce
-- [ ] Accompagnement et suivi de projets
+- [x] Accompagnement et suivi de projets
 
 ## Langages et technologies utilisés
 + PHP 7.x
++ POO
 + SQL (MySQL/MariaDB)
 + HTML5
-+ CSS3 (Bootstrap)
++ CSS3
++ Bootstrap
