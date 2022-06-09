@@ -33,8 +33,10 @@
  * - sendmail_path="d:\apps\sendmail\sendmail.exe -t"
  * 
  * CONFIGURATION GMAIL
- * Cliquer sur le lien suivant pour autoriser les apps moins sécurisées : 
- * https://www.google.com/settings/security/lesssecureapps
+ * Créer et utiliser des mots de passe d'application :
+ * Accéder au compte Google : https://myaccount.google.com/
+ * Sélectionner "Sécurité"
+ * Sous "Se connecter à Google", sélectionner "Mots de passe des applications"
  */
 
 $to = "greta.oise@gmail.com,webmaster@baobab-ingenierie.fr";
